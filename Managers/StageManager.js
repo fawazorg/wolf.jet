@@ -20,7 +20,7 @@ module.exports = class StageManager {
         this.#Client.V3,
         groupId,
         slotId,
-        offerSdp
+        offerSdp.replace("a=sendrecv", "a=recvonly")
       );
       resolve(response.body.sdp);
     });
