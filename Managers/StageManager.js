@@ -31,4 +31,14 @@ module.exports = class StageManager {
     //console.log(response);
     return response.body;
   };
+
+  StageDisconnect = async (id, slotId, occupierId) => {
+    let resp = await Requests.GroupAudioBroadcastDisconnect(
+      this.#Client.V3,
+      id,
+      slotId,
+      occupierId
+    );
+    return resp;
+  };
 };
