@@ -7,11 +7,7 @@ const StatsDetails = require("../Models/GroupStats/StatsDetails");
 const StatsSubscriber = require("../Models/GroupStats/StatsSubscriber");
 const StatsSubscriberTop = require("../Models/GroupStats/StatsSubscriberTop");
 const StatsSubscriberTopWord = require("../Models/GroupStats/StatsSubscriberTopWord");
-const {
-  StatsTrendsDate,
-  StatsTrendsDay,
-  StatsTrendsHour,
-} = require("../Models/GroupStats/StatsTrends");
+const { StatsTrendsDate, StatsTrendsDay, StatsTrendsHour } = require("../Models/GroupStats/StatsTrends");
 const GroupStats = require("../Models/GroupStats/GroupStats");
 
 module.exports = class GroupManager {
@@ -35,18 +31,9 @@ module.exports = class GroupManager {
    * @param {boolean} subscribe
    * @returns {Group}
    */
-  GetGroup = async (
-    nameOrId,
-    entities = ["base", "extended", "audioConfig", "audioCounts"],
-    subscribe = true
-  ) => {
+  GetGroup = async (nameOrId, entities = ["base", "extended", "audioConfig", "audioCounts"], subscribe = true) => {
     try {
-      let response = await Requests.GroupProfile(
-        this.#Client.V3,
-        nameOrId,
-        entities,
-        subscribe
-      );
+      let response = await Requests.GroupProfile(this.#Client.V3, nameOrId, entities, subscribe);
 
       let { base, extended, audioConfig, audioCounts } = response.body;
 
@@ -71,18 +58,9 @@ module.exports = class GroupManager {
    * @param {*} entities the entities to fetch
    * @param {*} subscribe subscribe to changes to the group profiles
    */
-  GetGroups = async (
-    idList,
-    entities = ["base", "extended", "audioConfig", "audioCounts"],
-    subscribe = true
-  ) => {
+  GetGroups = async (idList, entities = ["base", "extended", "audioConfig", "audioCounts"], subscribe = true) => {
     try {
-      let response = await Requests.GroupProfiles(
-        this.#Client.V3,
-        idList,
-        entities,
-        subscribe
-      );
+      let response = await Requests.GroupProfiles(this.#Client.V3, idList, entities, subscribe);
 
       let groups = response.map((t) => {
         return assign(new Group(), {
@@ -133,12 +111,8 @@ module.exports = class GroupManager {
       top25 = top25.map((t25) => assign(new StatsSubscriber(), t25));
       next30 = next30.map((n30) => assign(new StatsSubscriber(), n30));
       topWord = topWord.map((tw) => assign(new StatsSubscriberTopWord(), tw));
-      topQuestion = topQuestion.map((tq) =>
-        assign(new StatsSubscriberTop(), tq)
-      );
-      topEmoticon = topEmoticon.map((te) =>
-        assign(new StatsSubscriberTop(), te)
-      );
+      topQuestion = topQuestion.map((tq) => assign(new StatsSubscriberTop(), tq));
+      topEmoticon = topEmoticon.map((te) => assign(new StatsSubscriberTop(), te));
       topHappy = topHappy.map((th) => assign(new StatsSubscriberTop(), th));
       topSad = topHappy.map((ts) => assign(new StatsSubscriberTop(), ts));
       topSwear = topSwear.map((ts) => assign(new StatsSubscriberTop(), ts));
