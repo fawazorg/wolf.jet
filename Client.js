@@ -8,6 +8,7 @@ const MessageManager = require("./Managers/MessageManager");
 const StageManager = require("./Managers/StageManager");
 const SubscriberManager = require("./Managers/SubscriberManager");
 const AchievementManger = require("./Managers/AchievementManger");
+const CharmManger = require("./Managers/CharmManger");
 
 module.exports = class Client {
   /**
@@ -57,6 +58,11 @@ module.exports = class Client {
   Achievements;
 
   /**
+   * @type {CharmManger}
+   */
+  CharmManger;
+
+  /**
    * @type {SubscriberManager}
    */
   Subscribers;
@@ -72,6 +78,7 @@ module.exports = class Client {
     this.Stages = new StageManager(this);
     this.Subscribers = new SubscriberManager(this);
     this.Achievements = new AchievementManger(this);
+    this.CharmManger = new CharmManger(this);
 
     this.On = new Events(this, this.Emitter);
   }

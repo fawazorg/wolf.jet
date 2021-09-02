@@ -42,14 +42,11 @@ module.exports = class IO {
   Emit = (command, data, batchSize = 50) =>
     new Promise(async (resolve, reject) => {
       // Wrap in Body if just raw data is passed along
-      if (!data?.headers && !data?.body)
-        data = { headers: {}, body: data ?? {} };
+      if (!data?.headers && !data?.body) data = { headers: {}, body: data ?? {} };
 
       // If no id list, this is just a simple request
       if (!data?.body?.idList)
-        return this.Conn.emit(command, data, (resp) =>
-          resp?.code >= 200 && resp?.code <= 299 ? resolve(resp) : reject(resp)
-        );
+        return this.Conn.emit(command, data, (resp) => (resp?.code >= 200 && resp?.code <= 299 ? resolve(resp) : reject(resp)));
 
       // Unique IDs only (remove all duplicates)
       let idList = new Array(...new Set(data?.body?.idList)) ?? [];
@@ -57,19 +54,13 @@ module.exports = class IO {
       // Chunk the ID list according to batch size
       let chunks = [];
 
-      for (let i = 0; i < idList.length; i += batchSize)
-        chunks.push(idList.slice(i, i + batchSize));
+      for (let i = 0; i < idList.length; i += batchSize) chunks.push(idList.slice(i, i + batchSize));
 
       // method for arrayPool to call
       let req = (idList) =>
         new Promise((resolve, reject) =>
-          this.Conn.emit(
-            command,
-            { headers: data.headers, body: { ...data?.body, idList } },
-            (resp) =>
-              resp?.code >= 200 && resp?.code <= 299
-                ? resolve(resp)
-                : reject(resp)
+          this.Conn.emit(command, { headers: data.headers, body: { ...data?.body, idList } }, (resp) =>
+            resp?.code >= 200 && resp?.code <= 299 ? resolve(resp) : reject(resp)
           )
         );
 
