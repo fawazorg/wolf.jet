@@ -9,6 +9,7 @@ const StageManager = require("./Managers/StageManager");
 const SubscriberManager = require("./Managers/SubscriberManager");
 const AchievementManger = require("./Managers/AchievementManger");
 const CharmManger = require("./Managers/CharmManger");
+const ContactManger = require("./Managers/ContactManger");
 
 module.exports = class Client {
   /**
@@ -63,6 +64,11 @@ module.exports = class Client {
   CharmManger;
 
   /**
+   * @type {ContactManger}
+   */
+  ContactManger;
+
+  /**
    * @type {SubscriberManager}
    */
   Subscribers;
@@ -79,6 +85,7 @@ module.exports = class Client {
     this.Subscribers = new SubscriberManager(this);
     this.Achievements = new AchievementManger(this);
     this.CharmManger = new CharmManger(this);
+    this.ContactManger = new ContactManger(this);
 
     this.On = new Events(this, this.Emitter);
   }
