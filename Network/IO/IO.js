@@ -1,6 +1,6 @@
 const asyncPool = require("tiny-async-pool");
-const Client = require("../../Client");
 const io = require("socket.io-client");
+const Client = require("../../Client");
 
 /**
  * Socket.IO Handler
@@ -49,15 +49,15 @@ module.exports = class IO {
         return this.Conn.emit(command, data, (resp) => (resp?.code >= 200 && resp?.code <= 299 ? resolve(resp) : reject(resp)));
 
       // Unique IDs only (remove all duplicates)
-      let idList = new Array(...new Set(data?.body?.idList)) ?? [];
+      const idList = new Array(...new Set(data?.body?.idList)) ?? [];
 
       // Chunk the ID list according to batch size
-      let chunks = [];
+      const chunks = [];
 
       for (let i = 0; i < idList.length; i += batchSize) chunks.push(idList.slice(i, i + batchSize));
 
       // method for arrayPool to call
-      let req = (idList) =>
+      const req = (idList) =>
         new Promise((resolve, reject) =>
           this.Conn.emit(command, { headers: data.headers, body: { ...data?.body, idList } }, (resp) =>
             resp?.code >= 200 && resp?.code <= 299 ? resolve(resp) : reject(resp)

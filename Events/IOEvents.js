@@ -1,42 +1,48 @@
-const Client = require('../Client');
-const { EventEmitter } = require('events');
+const { EventEmitter } = require("events");
+const Client = require("../Client");
 
 module.exports = class IOEvents {
-    /**
-     * @type {Client}
-     */
-    #Client;
+  /**
+   * @type {Client}
+   */
+  #Client;
 
-    /**
-     * @type {EventEmitter}
-     */
-    #Emitter;
+  /**
+   * @type {EventEmitter}
+   */
+  #Emitter;
 
-    /**
-     * Create new Events Handler
-     * @param {Client} client 
-     * @param {EventEmitter} emitter 
-     */
-    constructor(client, emitter) {
-        this.#Client = client;
-        this.#Emitter = emitter;
-    }
+  /**
+   * Create new Events Handler
+   * @param {Client} client
+   * @param {EventEmitter} emitter
+   */
+  constructor(client, emitter) {
+    this.#Client = client;
+    this.#Emitter = emitter;
+  }
 
-    /**
-     * Raise an Event when Connected to WOLF
-     * @param {() => void} fn
-     */
-    set Connected(fn) { this.#Client.V3.Conn.on('connect', fn); };
+  /**
+   * Raise an Event when Connected to WOLF
+   * @param {() => void} fn
+   */
+  set Connected(fn) {
+    this.#Client.V3.Conn.on("connect", fn);
+  }
 
-    /**
-     * Raise an Event when Connected to WOLF
-     * @param {(reason: string) => void} fn
-     */
-    set Disconnected(fn) { this.#Client.V3.Conn.on('disconnect', fn); };
+  /**
+   * Raise an Event when Connected to WOLF
+   * @param {(reason: string) => void} fn
+   */
+  set Disconnected(fn) {
+    this.#Client.V3.Conn.on("disconnect", fn);
+  }
 
-    /**
-     * Raise an Event when Connected to WOLF
-     * @param {(attempt: number) => void} fn
-     */
-    set Reconnected(fn) { this.#Client.V3.Conn.on('reconnect', fn); };
-}
+  /**
+   * Raise an Event when Connected to WOLF
+   * @param {(attempt: number) => void} fn
+   */
+  set Reconnected(fn) {
+    this.#Client.V3.Conn.on("reconnect", fn);
+  }
+};

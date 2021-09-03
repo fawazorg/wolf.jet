@@ -1,5 +1,3 @@
-const IO = require('../IO');
+const IO = require("../IO");
 
-module.exports = class ProductRequests {
-
-}
+module.exports = class ProductRequests {};

@@ -1,6 +1,7 @@
 const { assign } = require("./util");
 const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
+
 module.exports = class StoreManger {
   /**
    * @type {Client}
@@ -17,11 +18,11 @@ module.exports = class StoreManger {
 
   /**
    * get store credit balance
-   * @returns {}
+   * @returns {number}
    */
   CreditBalance = async (subscribe) => {
     try {
-      let response = await Requests.StoreCreditBalance(this.#Client.V3, subscribe);
+      const response = await Requests.StoreCreditBalance(this.#Client.V3, subscribe);
 
       return response.body.balance;
     } catch {

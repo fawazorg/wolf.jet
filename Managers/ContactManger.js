@@ -1,6 +1,7 @@
 const { assign } = require("./util");
 const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
+
 module.exports = class ContactManger {
   /**
    * @type {Client}
@@ -21,7 +22,7 @@ module.exports = class ContactManger {
    */
   ContactList = async () => {
     try {
-      let response = await Requests.SubscriberContactList(this.#Client.V3);
+      const response = await Requests.SubscriberContactList(this.#Client.V3);
 
       return response.body;
     } catch {
@@ -36,7 +37,7 @@ module.exports = class ContactManger {
    */
   ContactAdd = async (id, languageId) => {
     try {
-      let response = await Requests.SubscriberContactAdd(this.#Client.V3, id);
+      const response = await Requests.SubscriberContactAdd(this.#Client.V3, id);
       return true;
     } catch {
       return false;
@@ -50,7 +51,7 @@ module.exports = class ContactManger {
    */
   ContactDelete = async (id) => {
     try {
-      let response = await Requests.SubscriberContactDelete(this.#Client.V3, id);
+      const response = await Requests.SubscriberContactDelete(this.#Client.V3, id);
       return true;
     } catch {
       return false;

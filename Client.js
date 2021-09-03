@@ -1,5 +1,5 @@
-const Events = require("./Events");
 const { EventEmitter } = require("events");
+const Events = require("./Events");
 const IO = require("./Network/IO/IO");
 const Requests = require("./Network/IO/Requests");
 const Subscriber = require("./Models/Subscriber/Subscriber");
@@ -11,6 +11,7 @@ const AchievementManger = require("./Managers/AchievementManger");
 const CharmManger = require("./Managers/CharmManger");
 const ContactManger = require("./Managers/ContactManger");
 const StoreManger = require("./Managers/StoreManger");
+const GroupEventManger = require("./Managers/GroupEventManger");
 
 module.exports = class Client {
   /**
@@ -75,6 +76,11 @@ module.exports = class Client {
   StoreManger;
 
   /**
+   * @type {GroupEventManger}
+   */
+  GroupEventManger;
+
+  /**
    * @type {SubscriberManager}
    */
   Subscribers;
@@ -93,6 +99,7 @@ module.exports = class Client {
     this.CharmManger = new CharmManger(this);
     this.ContactManger = new ContactManger(this);
     this.StoreManger = new StoreManger(this);
+    this.GroupEventManger = new GroupEventManger(this);
 
     this.On = new Events(this, this.Emitter);
   }
@@ -105,9 +112,9 @@ module.exports = class Client {
    */
   Login = async (email, password, onlineState = 1) => {
     try {
-      let resp = await Requests.SecurityLogin(this.V3, email, password, onlineState);
+      const resp = await Requests.SecurityLogin(this.V3, email, password, onlineState);
 
-      let { code, headers, body } = resp;
+      const { code, headers, body } = resp;
 
       if (code !== 200) {
         const { subcode } = headers;
@@ -134,7 +141,7 @@ module.exports = class Client {
    */
   Logout = async () => {
     try {
-      let resp = await Requests.SecurityLogout(this.V3);
+      const resp = await Requests.SecurityLogout(this.V3);
 
       console.log(resp);
     } catch (e) {
@@ -147,13 +154,10 @@ module.exports = class Client {
    */
   #GenerateToken = () => {
     let d = new Date().getTime();
-    return (
-      "WolfJS" +
-      "x".repeat(64).replace(/[x]/gi, (c) => {
-        let r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
-      })
-    );
+    return `WolfJS${"x".repeat(64).replace(/[x]/gi, (c) => {
+      const r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+    })}`;
   };
 };

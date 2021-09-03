@@ -1,16 +1,16 @@
 module.exports = class GroupAudioCounts {
-    /**
-     * @type {number}
-     */
-    Id;
+  /**
+   * @type {number}
+   */
+  Id;
 
-    /**
-     * @type {number}
-     */
-    ConsumerCount;
+  /**
+   * @type {number}
+   */
+  ConsumerCount;
 
-    /**
-     * @type {number}
-     */
-    BroadcasterCount;
-}
+  /**
+   * @type {number}
+   */
+  BroadcasterCount;
+};

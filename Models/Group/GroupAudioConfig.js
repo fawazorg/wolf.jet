@@ -1,21 +1,21 @@
 module.exports = class GroupAudioConfig {
-    /**
-     * @type {number}
-     */
-    Id;
+  /**
+   * @type {number}
+   */
+  Id;
 
-    /**
-     * @type {boolean}
-     */
-    Enabled;
+  /**
+   * @type {boolean}
+   */
+  Enabled;
 
-    /**
-     * @type {number}
-     */
-    MinRepLevel;
+  /**
+   * @type {number}
+   */
+  MinRepLevel;
 
-    /**
-     * @type {number}
-     */
-    StageId;
-}
+  /**
+   * @type {number}
+   */
+  StageId;
+};

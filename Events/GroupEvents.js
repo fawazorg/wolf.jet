@@ -1,57 +1,65 @@
-const Client = require('../Client');
-const { EventEmitter } = require('events');
-const Group = require('../Models/Group/Group');
+const { EventEmitter } = require("events");
+const Client = require("../Client");
+const Group = require("../Models/Group/Group");
 
 module.exports = class Events {
-    /**
-     * @type {Client}
-     */
-    #Client;
+  /**
+   * @type {Client}
+   */
+  #Client;
 
-    /**
-     * @type {EventEmitter}
-     */
-    #Emitter;
+  /**
+   * @type {EventEmitter}
+   */
+  #Emitter;
 
-    /**
-     * Create new Events Handler
-     * @param {Client} client 
-     * @param {EventEmitter} emitter 
-     */
-    constructor(client, emitter) {
-        this.#Client = client;
-        this.#Emitter = emitter;
-        
-        this.#Client.V3.Conn.on('group update', this.#OnUpdate);
-    }
+  /**
+   * Create new Events Handler
+   * @param {Client} client
+   * @param {EventEmitter} emitter
+   */
+  constructor(client, emitter) {
+    this.#Client = client;
+    this.#Emitter = emitter;
 
-    /**
-     * Raise an event when a group is fetched
-     * @param {(group: Group) => void} fn
-     */
-    set Fetched(fn) { this.#Emitter.on('group profile', fn); };
+    this.#Client.V3.Conn.on("group update", this.#OnUpdate);
+  }
 
-    /**
-     * Raise an event when a group is updated
-     * @param {(groupId: number) => void} fn
-     */
-    set Updated(fn) { this.#Emitter.on('group update', fn); };
+  /**
+   * Raise an event when a group is fetched
+   * @param {(group: Group) => void} fn
+   */
+  set Fetched(fn) {
+    this.#Emitter.on("group profile", fn);
+  }
 
-    /**
-     * Emit the Group Fetched Event
-     * @returns {(group: Group) => boolean}}
-     */
-    get Fetched() { return (group) => this.#Emitter.emit('group profile', group); };
+  /**
+   * Raise an event when a group is updated
+   * @param {(groupId: number) => void} fn
+   */
+  set Updated(fn) {
+    this.#Emitter.on("group update", fn);
+  }
 
-    /**
-     * Emit the Group Updated Event
-     * @returns {(groupId: number) => booleam}
-     */
-    get Updated() { return (groupId) => this.#Emitter.emit('group update', groupId); };
+  /**
+   * Emit the Group Fetched Event
+   * @returns {(group: Group) => boolean}}
+   */
+  get Fetched() {
+    return (group) => this.#Emitter.emit("group profile", group);
+  }
 
-    #OnUpdate = async (data) => {
-        let { id } = data.body;
+  /**
+   * Emit the Group Updated Event
+   * @returns {(groupId: number) => booleam}
+   */
+  get Updated() {
+    return (groupId) => this.#Emitter.emit("group update", groupId);
+  }
 
-        this.Updated(id);
-    }
-}
+  #OnUpdate = async (data) => {
+    const { id } = data.body;
+
+    this.Updated(id);
+  };
+};

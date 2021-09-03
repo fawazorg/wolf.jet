@@ -1,51 +1,51 @@
 module.exports = class GroupExtended {
-    /**
-     * @type {number}
-     */
-    Id;
+  /**
+   * @type {number}
+   */
+  Id;
 
-    /**
-     * @type {boolean}
-     */
-    Discoverable;
+  /**
+   * @type {boolean}
+   */
+  Discoverable;
 
-    /**
-     * @type {boolean}
-     */
-    AdvancedAdmin;
+  /**
+   * @type {boolean}
+   */
+  AdvancedAdmin;
 
-    /**
-     * @type {boolean}
-     */
-    Locked;
+  /**
+   * @type {boolean}
+   */
+  Locked;
 
-    /**
-     * @type {boolean}
-     */
-    Questionable;
+  /**
+   * @type {boolean}
+   */
+  Questionable;
 
-    /**
-     * @type {number}
-     */
-    EntryLevel;
+  /**
+   * @type {number}
+   */
+  EntryLevel;
 
-    /**
-     * @type {boolean}
-     */
-    Passworded;
+  /**
+   * @type {boolean}
+   */
+  Passworded;
 
-    /**
-     * @type {number}
-     */
-    Language;
+  /**
+   * @type {number}
+   */
+  Language;
 
-    /**
-     * @type {number}
-     */
-    LongDescription;
+  /**
+   * @type {number}
+   */
+  LongDescription;
 
-    /**
-     * @type {number}
-     */
-    Category;
-}
+  /**
+   * @type {number}
+   */
+  Category;
+};

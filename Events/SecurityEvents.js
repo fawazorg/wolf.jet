@@ -1,79 +1,91 @@
-const Client = require('../Client');
-const { EventEmitter } = require('events');
-const Subscriber = require('../Models/Subscriber/Subscriber');
-const Requests = require('../Network/IO/Requests');
+const { EventEmitter } = require("events");
+const Client = require("../Client");
+const Subscriber = require("../Models/Subscriber/Subscriber");
+const Requests = require("../Network/IO/Requests");
 
 module.exports = class Events {
-    /**
-     * @type {Client}
-     */
-    #Client;
+  /**
+   * @type {Client}
+   */
+  #Client;
 
-    /**
-     * @type {EventEmitter}
-     */
-    #Emitter;
+  /**
+   * @type {EventEmitter}
+   */
+  #Emitter;
 
-    /**
-     * Create new Events Handler
-     * @param {Client} client 
-     * @param {EventEmitter} emitter 
-     */
-    constructor(client, emitter) {
-        this.#Client = client;
-        this.#Emitter = emitter;
+  /**
+   * Create new Events Handler
+   * @param {Client} client
+   * @param {EventEmitter} emitter
+   */
+  constructor(client, emitter) {
+    this.#Client = client;
+    this.#Emitter = emitter;
 
-        this.LoginSuccess = this.#OnLoginSuccess;
-    }
-    
-    /**
-     * Raise an event when login to wolf failed
-     * @param {(subcode: number)} fn
-     */
-    set LoginFailed(fn) { this.#Emitter.on('security login failed', fn); };
-    
-    /**
-     * Raise an event when logged in successfully
-     * @param {(subscriber: Subscriber) => void} fn
-     */
-    set LoginSuccess(fn) { this.#Emitter.on('security login success', fn); };
+    this.LoginSuccess = this.#OnLoginSuccess;
+  }
 
-    /**
-     * Raise an event when the Cognito Token is refreshed
-     * @param {(cognito: { identity: string, token: string}) => void} fn
-     */
-    set TokenRefreshed(fn) { this.#Emitter.on('security token refreshed', fn); };
-    
-    /**
-     * Emit the Security Login Failed Event
-     * @returns {(subcode: number) => boolean}
-     */
-    get LoginFailed() { return (subcode) => this.#Emitter.emit('security login failed', subcode); };
-    
-    /**
-     * Emit the Secuirty Login Success Event
-     * @returns {(subscriber: Subscriber) => boolean}
-     */
-    get LoginSuccess() { return (subscriber) => this.#Emitter.emit('security login success', subscriber); };
+  /**
+   * Raise an event when login to wolf failed
+   * @param {(subcode: number)} fn
+   */
+  set LoginFailed(fn) {
+    this.#Emitter.on("security login failed", fn);
+  }
 
-    /**
-     * Emit the Security Token Refreshed Event
-     * @returns {(cognito: { identity: string, token: string}) => boolean}
-     */
-    get TokenRefreshed() { return (cognito) => this.#Emitter.emit('security token refreshed', cognito); };
+  /**
+   * Raise an event when logged in successfully
+   * @param {(subscriber: Subscriber) => void} fn
+   */
+  set LoginSuccess(fn) {
+    this.#Emitter.on("security login success", fn);
+  }
 
-    /**
-     * Handle the OnLoginSuccess Stuff
-     * @param {Subscriber} subscriber 
-     */
-    #OnLoginSuccess = async (subscriber) => {
-        try {
-            // Subscribe to Messages
-            let mgs = await Requests.MessageGroupSubscribe(this.#Client.V3);
-            let mps = await Requests.MessagePrivateSubscribe(this.#Client.V3);
+  /**
+   * Raise an event when the Cognito Token is refreshed
+   * @param {(cognito: { identity: string, token: string}) => void} fn
+   */
+  set TokenRefreshed(fn) {
+    this.#Emitter.on("security token refreshed", fn);
+  }
 
-            // Emit the Ready Event
-            this.#Client.On.SDK.Ready();
-        } catch { }
-    }
-}
+  /**
+   * Emit the Security Login Failed Event
+   * @returns {(subcode: number) => boolean}
+   */
+  get LoginFailed() {
+    return (subcode) => this.#Emitter.emit("security login failed", subcode);
+  }
+
+  /**
+   * Emit the Secuirty Login Success Event
+   * @returns {(subscriber: Subscriber) => boolean}
+   */
+  get LoginSuccess() {
+    return (subscriber) => this.#Emitter.emit("security login success", subscriber);
+  }
+
+  /**
+   * Emit the Security Token Refreshed Event
+   * @returns {(cognito: { identity: string, token: string}) => boolean}
+   */
+  get TokenRefreshed() {
+    return (cognito) => this.#Emitter.emit("security token refreshed", cognito);
+  }
+
+  /**
+   * Handle the OnLoginSuccess Stuff
+   * @param {Subscriber} subscriber
+   */
+  #OnLoginSuccess = async (subscriber) => {
+    try {
+      // Subscribe to Messages
+      const mgs = await Requests.MessageGroupSubscribe(this.#Client.V3);
+      const mps = await Requests.MessagePrivateSubscribe(this.#Client.V3);
+
+      // Emit the Ready Event
+      this.#Client.On.SDK.Ready();
+    } catch {}
+  };
+};

@@ -1,12 +1,11 @@
 module.exports = class GenericSimple {
-    
-    /**
-     * @type {number}
-     */
-    Id;
-    
-    /**
-     * @type {string}
-     */
-    Hash;
-}
+  /**
+   * @type {number}
+   */
+  Id;
+
+  /**
+   * @type {string}
+   */
+  Hash;
+};

@@ -2,6 +2,7 @@ const { assign } = require("./util");
 const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 const Charm = require("../Models/Charm");
+
 module.exports = class AchievementManager {
   /**
    * @type {Client}
@@ -23,10 +24,8 @@ module.exports = class AchievementManager {
    */
   CharmList = async (languageId) => {
     try {
-      let response = await Requests.CharmList(this.#Client.V3, languageId);
-      let Charms = response.body.map((t) => {
-        return assign(new Charm(), t);
-      });
+      const response = await Requests.CharmList(this.#Client.V3, languageId);
+      const Charms = response.body.map((t) => assign(new Charm(), t));
       return Charms;
     } catch {
       return null;
@@ -41,8 +40,8 @@ module.exports = class AchievementManager {
    */
   GetCharm = async (id, languageId) => {
     try {
-      let response = await Requests.Charm(this.#Client.V3, id, languageId);
-      let charm = assign(new Charm(), response.body[0]);
+      const response = await Requests.Charm(this.#Client.V3, id, languageId);
+      const charm = assign(new Charm(), response.body[0]);
       return charm;
     } catch {
       return null;
@@ -55,7 +54,7 @@ module.exports = class AchievementManager {
    */
   StarredList = async () => {
     try {
-      let response = await Requests.StarredList(this.#Client.V3);
+      const response = await Requests.StarredList(this.#Client.V3);
       return response.body;
     } catch {
       return null;
@@ -71,7 +70,7 @@ module.exports = class AchievementManager {
    */
   ActiveList = async (id, limit, offset) => {
     try {
-      let response = await Requests.ActiveList(this.#Client.V3, id, limit, offset);
+      const response = await Requests.ActiveList(this.#Client.V3, id, limit, offset);
       return response.body;
     } catch {
       return null;
@@ -87,7 +86,7 @@ module.exports = class AchievementManager {
    */
   ExpiredList = async (id, limit, offset) => {
     try {
-      let response = await Requests.ExpiredList(this.#Client.V3, id, limit, offset);
+      const response = await Requests.ExpiredList(this.#Client.V3, id, limit, offset);
       return response.body;
     } catch {
       return null;
@@ -101,7 +100,7 @@ module.exports = class AchievementManager {
    */
   setCharm = async (charmID) => {
     try {
-      let response = await Requests.SetSelected(this.#Client.V3, charmID);
+      const response = await Requests.SetSelected(this.#Client.V3, charmID);
       return true;
     } catch {
       return false;
@@ -117,7 +116,7 @@ module.exports = class AchievementManager {
    */
   SummaryList = async (id, limit, offset) => {
     try {
-      let response = await Requests.SummaryList(this.#Client.V3, id);
+      const response = await Requests.SummaryList(this.#Client.V3, id);
       return response.body;
     } catch {
       return null;
@@ -132,7 +131,7 @@ module.exports = class AchievementManager {
    */
   Statistics = async (id, extended) => {
     try {
-      let response = await Requests.Statistics(this.#Client.V3, id, extended);
+      const response = await Requests.Statistics(this.#Client.V3, id, extended);
       return response.body;
     } catch {
       return null;

@@ -1,59 +1,59 @@
-const SubscriberExtended = require('./SubscriberExtended');
-const SubscriberCharms = require('./SubscriberCharms');
+const SubscriberExtended = require("./SubscriberExtended");
+const SubscriberCharms = require("./SubscriberCharms");
 
 module.exports = class Subscriber {
-    /**
-     * @type {number}
-     */
-    Id;
-    
-    /**
-     * @type {string}
-     */
-    Hash;
+  /**
+   * @type {number}
+   */
+  Id;
 
-    /**
-     * @type {number}
-     */
-    Privileges;
+  /**
+   * @type {string}
+   */
+  Hash;
 
-    /**
-     * @type {string}
-     */
-    Nickname;
+  /**
+   * @type {number}
+   */
+  Privileges;
 
-    /**
-     * @type {string}
-     */
-    Status;
+  /**
+   * @type {string}
+   */
+  Nickname;
 
-    /**
-     * @type {number}
-     */
-    Reputation;
+  /**
+   * @type {string}
+   */
+  Status;
 
-    /**
-     * @type {number}
-     */
-    Icon;
+  /**
+   * @type {number}
+   */
+  Reputation;
 
-    /**
-     * @type {number}
-     */
-    OnlineState;
+  /**
+   * @type {number}
+   */
+  Icon;
 
-    /**
-     * @type {number}
-     */
-    DeviceType;
+  /**
+   * @type {number}
+   */
+  OnlineState;
 
-    /**
-     * @type {SubscriberCharms}
-     */
-    Charms = new SubscriberCharms();
+  /**
+   * @type {number}
+   */
+  DeviceType;
 
-    /**
-     * @type {SubscriberExtended}
-     */
-    Extended = new SubscriberExtended();
-}
+  /**
+   * @type {SubscriberCharms}
+   */
+  Charms = new SubscriberCharms();
+
+  /**
+   * @type {SubscriberExtended}
+   */
+  Extended = new SubscriberExtended();
+};

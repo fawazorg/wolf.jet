@@ -1,46 +1,46 @@
 module.exports = class SubscriberExtended {
-    /**
-     * @type {string}
-     */
-    Name;
+  /**
+   * @type {string}
+   */
+  Name;
 
-    /**
-     * @type {string}
-     */
-    About;
+  /**
+   * @type {string}
+   */
+  About;
 
-    /**
-     * @type {number}
-     */
-    Gender;
+  /**
+   * @type {number}
+   */
+  Gender;
 
-    /**
-     * @type {number}
-     */
-    LookingFor;
+  /**
+   * @type {number}
+   */
+  LookingFor;
 
-    /**
-     * @type {number}
-     */
-    Relationship;
+  /**
+   * @type {number}
+   */
+  Relationship;
 
-    /**
-     * @type {number}
-     */
-    Language;
+  /**
+   * @type {number}
+   */
+  Language;
 
-    /**
-     * @type {string[]}
-     */
-    URLs;
-    
-    /**
-     * @type {number}
-     */
-    DateOfBirth;
+  /**
+   * @type {string[]}
+   */
+  URLs;
 
-    /**
-     * @type {number}
-     */
-    UtcOffset;
-}
+  /**
+   * @type {number}
+   */
+  DateOfBirth;
+
+  /**
+   * @type {number}
+   */
+  UtcOffset;
+};

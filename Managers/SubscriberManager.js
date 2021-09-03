@@ -26,8 +26,8 @@ module.exports = class SubscriberManager {
    */
   GetSubscriber = async (id, extended = false, subscribe = false) => {
     try {
-      let response = await Requests.SubscriberProfile(this.#Client.V3, id, extended, subscribe);
-      let sub = assign(new Subscriber(), response.body);
+      const response = await Requests.SubscriberProfile(this.#Client.V3, id, extended, subscribe);
+      const sub = assign(new Subscriber(), response.body);
       this.#Client.On.Subscriber.Fetched(sub);
       return sub;
     } catch {
@@ -44,8 +44,8 @@ module.exports = class SubscriberManager {
    */
   GetSubscribers = async (idList, extended = false, subscribe = false) => {
     try {
-      let response = await Requests.SubscriberProfiles(this.#Client.V3, idList, extended, subscribe);
-      let subs = response.map((t) => assign(new Subscriber(), t));
+      const response = await Requests.SubscriberProfiles(this.#Client.V3, idList, extended, subscribe);
+      const subs = response.map((t) => assign(new Subscriber(), t));
       subs.forEach((sub) => this.#Client.On.Subscriber.Fetched(sub));
       return response.map((t) => assign(new Subscriber(), t));
     } catch (e) {
@@ -84,7 +84,7 @@ module.exports = class SubscriberManager {
    */
   BlockList = async (subscribe = true) => {
     try {
-      let response = await Requests.SubscriberBlockList(this.#Client.V3, subscribe);
+      const response = await Requests.SubscriberBlockList(this.#Client.V3, subscribe);
       return response.body;
     } catch {
       return null;
@@ -97,7 +97,7 @@ module.exports = class SubscriberManager {
    */
   BlockAdd = async (id) => {
     try {
-      let response = await Requests.SubscriberBlockAdd(this.#Client.V3, id);
+      const response = await Requests.SubscriberBlockAdd(this.#Client.V3, id);
       return true;
     } catch {
       return false;
@@ -110,7 +110,7 @@ module.exports = class SubscriberManager {
    */
   BlockDelete = async (id) => {
     try {
-      let response = await Requests.SubscriberBlockDelete(this.#Client.V3, id);
+      const response = await Requests.SubscriberBlockDelete(this.#Client.V3, id);
       return true;
     } catch {
       return false;

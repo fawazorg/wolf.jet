@@ -33,11 +33,11 @@ module.exports = class GroupManager {
    */
   GetGroup = async (nameOrId, entities = ["base", "extended", "audioConfig", "audioCounts"], subscribe = true) => {
     try {
-      let response = await Requests.GroupProfile(this.#Client.V3, nameOrId, entities, subscribe);
+      const response = await Requests.GroupProfile(this.#Client.V3, nameOrId, entities, subscribe);
 
-      let { base, extended, audioConfig, audioCounts } = response.body;
+      const { base, extended, audioConfig, audioCounts } = response.body;
 
-      let group = assign(new Group(), {
+      const group = assign(new Group(), {
         ...base,
         extended,
         audioConfig,
@@ -60,16 +60,16 @@ module.exports = class GroupManager {
    */
   GetGroups = async (idList, entities = ["base", "extended", "audioConfig", "audioCounts"], subscribe = true) => {
     try {
-      let response = await Requests.GroupProfiles(this.#Client.V3, idList, entities, subscribe);
+      const response = await Requests.GroupProfiles(this.#Client.V3, idList, entities, subscribe);
 
-      let groups = response.map((t) => {
-        return assign(new Group(), {
+      const groups = response.map((t) =>
+        assign(new Group(), {
           ...t.base,
           extended: t.extended,
           audioConfig: t.audioConfig,
           audioCounts: t.audioCounts,
-        });
-      });
+        })
+      );
       groups.forEach((group) => this.#Client.On.Groups.Fetched(group));
 
       return groups;
@@ -85,7 +85,7 @@ module.exports = class GroupManager {
    */
   GetStats = async (id) => {
     try {
-      let response = await Requests.GroupStats(this.#Client.V3, id);
+      const response = await Requests.GroupStats(this.#Client.V3, id);
 
       let {
         details,
@@ -119,7 +119,7 @@ module.exports = class GroupManager {
       topImage = topImage.map((ti) => assign(new StatsSubscriberTop(), ti));
       topAction = topAction.map((ta) => assign(new StatsSubscriberTop(), ta));
 
-      let stats = assign(new GroupStats(), {
+      const stats = assign(new GroupStats(), {
         details,
         trendsHour,
         trendsDay,
@@ -176,10 +176,8 @@ module.exports = class GroupManager {
    */
   GetGroupMembers = async (id) => {
     try {
-      let respouns = await Requests.GroupMemberList(this.#Client.V3, id);
-      let members = respouns.body.map((t) => {
-        return assign(new GroupMember(), t);
-      });
+      const respouns = await Requests.GroupMemberList(this.#Client.V3, id);
+      const members = respouns.body.map((t) => assign(new GroupMember(), t));
       return members;
     } catch {
       return null;

@@ -1,76 +1,76 @@
-const SubscriberSimple = require('../Subscriber/SubscriberSimple');
-const GroupAudioConfig = require('./GroupAudioConfig');
-const GroupAudioCounts = require('./GroupAudioCounts');
-const GroupExtended = require('./GroupExtended');
+const SubscriberSimple = require("../Subscriber/SubscriberSimple");
+const GroupAudioConfig = require("./GroupAudioConfig");
+const GroupAudioCounts = require("./GroupAudioCounts");
+const GroupExtended = require("./GroupExtended");
 
 module.exports = class Group {
-    /**
-     * @type {number}
-     */
-    Id;
+  /**
+   * @type {number}
+   */
+  Id;
 
-    /**
-     * @type {string}
-     */
-    Name;
+  /**
+   * @type {string}
+   */
+  Name;
 
-    /**
-     * @type {string}
-     */
-    Hash;
+  /**
+   * @type {string}
+   */
+  Hash;
 
-    /**
-     * @type {string}
-     */
-    Description;
+  /**
+   * @type {string}
+   */
+  Description;
 
-    /**
-     * @type {number}
-     */
-    Reputation;
+  /**
+   * @type {number}
+   */
+  Reputation;
 
-    /**
-     * @type {boolean}
-     */
-    Premium;
+  /**
+   * @type {boolean}
+   */
+  Premium;
 
-    /**
-     * @type {number}
-     */
-    Icon;
+  /**
+   * @type {number}
+   */
+  Icon;
 
-    /**
-     * @type {number}
-     */
-    Members;
+  /**
+   * @type {number}
+   */
+  Members;
 
-    /**
-     * @type {boolean}
-     */
-    Official;
-    
-    /**
-     * @type {boolean}
-     */
-    Peekable;
+  /**
+   * @type {boolean}
+   */
+  Official;
 
-    /**
-     * @type {SubscriberSimple}
-     */
-    Owner = new SubscriberSimple;
+  /**
+   * @type {boolean}
+   */
+  Peekable;
 
-    /**
-     * @type {GroupExtended}
-     */
-    Extended = new GroupExtended;
+  /**
+   * @type {SubscriberSimple}
+   */
+  Owner = new SubscriberSimple();
 
-    /**
-     * @type {GroupAudioConfig}
-     */
-    AudioConfig = new GroupAudioConfig;
+  /**
+   * @type {GroupExtended}
+   */
+  Extended = new GroupExtended();
 
-    /**
-     * @type {GroupAudioCounts}
-     */
-    AudioCounts = new GroupAudioCounts;
-}
+  /**
+   * @type {GroupAudioConfig}
+   */
+  AudioConfig = new GroupAudioConfig();
+
+  /**
+   * @type {GroupAudioCounts}
+   */
+  AudioCounts = new GroupAudioCounts();
+};

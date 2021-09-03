@@ -1,5 +1,6 @@
 const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
+
 module.exports = class StageManager {
   /**
    * @type {Client}
@@ -14,31 +15,20 @@ module.exports = class StageManager {
     this.#Client = client;
   }
 
-  JoinStage = (groupId, slotId, offerSdp) => {
-    return new Promise(async (resolve) => {
-      let response = await Requests.GroupAudioBroadcast(
-        this.#Client.V3,
-        groupId,
-        slotId,
-        offerSdp
-      );
+  JoinStage = (groupId, slotId, offerSdp) =>
+    new Promise(async (resolve) => {
+      const response = await Requests.GroupAudioBroadcast(this.#Client.V3, groupId, slotId, offerSdp);
       resolve(response.body.sdp);
     });
-  };
 
   StageSlots = async (groupId) => {
-    let response = await Requests.GroupAudioSlotList(this.#Client.V3, groupId);
-    //console.log(response);
+    const response = await Requests.GroupAudioSlotList(this.#Client.V3, groupId);
+    // console.log(response);
     return response.body;
   };
 
   StageDisconnect = async (id, slotId, occupierId) => {
-    let resp = await Requests.GroupAudioBroadcastDisconnect(
-      this.#Client.V3,
-      id,
-      slotId,
-      occupierId
-    );
+    const resp = await Requests.GroupAudioBroadcastDisconnect(this.#Client.V3, id, slotId, occupierId);
     return resp;
   };
 };

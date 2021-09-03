@@ -15,12 +15,7 @@ module.exports = class GroupRequests {
    * @param {{'base' | 'extended' | 'audioConfig' | 'audioCounts'}[]} entities the entities of the group to fetch
    * @param {boolean} subscribe subscribe to group profile updates
    */
-  static GroupProfile = async (
-    io,
-    nameOrId,
-    entities = ["base", "extended", "audioConfig", "audioCounts"],
-    subscribe = false
-  ) =>
+  static GroupProfile = async (io, nameOrId, entities = ["base", "extended", "audioConfig", "audioCounts"], subscribe = false) =>
     await io.Emit("group profile", {
       headers: { version: 4 },
       body: {
@@ -37,12 +32,7 @@ module.exports = class GroupRequests {
    * @param {{'base' | 'extended' | 'audioConfig' | 'audioCounts'}[]} entities the entities of the groups to fetch
    * @param {boolean} subscribe subscribe to profile updates to these groups
    */
-  static GroupProfiles = async (
-    io,
-    idList,
-    entities = ["base", "extended", "audioConfig", "audioCounts"],
-    subscribe = false
-  ) =>
+  static GroupProfiles = async (io, idList, entities = ["base", "extended", "audioConfig", "audioCounts"], subscribe = false) =>
     await io.Emit("group profile", {
       headers: { version: 4 },
       body: {
@@ -69,6 +59,5 @@ module.exports = class GroupRequests {
    * @param {number} id the id of the group to update
    * @param {data} data the data to update the group with
    */
-  static GroupUpdate = async (io, id, data) =>
-    await io.Emit("group profile update", { id, ...data });
+  static GroupUpdate = async (io, id, data) => await io.Emit("group profile update", { id, ...data });
 };

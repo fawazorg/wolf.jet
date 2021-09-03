@@ -8,16 +8,11 @@ module.exports = class GroupMemberRequests {
    * @param {string} password the password of the group
    * @param {number} referredBy the id of the subscriber who referred the client
    */
-  static GroupMemberAdd = async (
-    io,
-    nameOrId,
-    password = null,
-    referredBy = null
-  ) =>
+  static GroupMemberAdd = async (io, nameOrId, password = null, referredBy = null) =>
     await io.Emit(
       "group member add",
       (() => {
-        let data = { [typeof nameOrId === "string" ? "name" : "id"]: nameOrId };
+        const data = { [typeof nameOrId === "string" ? "name" : "id"]: nameOrId };
 
         if (password) data.password = password;
         if (referredBy) data.referredBy = referredBy;
@@ -45,8 +40,7 @@ module.exports = class GroupMemberRequests {
    * @param {IO} io the socket.io client to send this request through
    * @param {number} subscriberId the id of the subscriber
    */
-  static GroupMemberDelete = async (io, subscriberId) =>
-    await io.Emit("group member delete", { subscriberId });
+  static GroupMemberDelete = async (io, subscriberId) => await io.Emit("group member delete", { subscriberId });
 
   /**
    *
