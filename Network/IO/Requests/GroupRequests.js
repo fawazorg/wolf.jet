@@ -1,16 +1,14 @@
-const IO = require("../IO");
-
 module.exports = class GroupRequests {
   /**
    * Create a Group
-   * @param {IO} io the socket.io clien to route this through
+   * @param {import("../IO")} io the socket.io clien to route this through
    * @param {any} data the data to create the group with
    */
   static GroupCreate = async (io, data) => await io.Emit("group create", data);
 
   /**
    * Get a Group by name or id
-   * @param {IO} io the socket.io clien to route this through
+   * @param {import("../IO")} io the socket.io clien to route this through
    * @param {string | number} nameOrId the name or id of the group
    * @param {{'base' | 'extended' | 'audioConfig' | 'audioCounts'}[]} entities the entities of the group to fetch
    * @param {boolean} subscribe subscribe to group profile updates
@@ -27,7 +25,7 @@ module.exports = class GroupRequests {
 
   /**
    * Get Multiple Groups by ID
-   * @param {IO} io the socket.io clien to route this through
+   * @param {import("../IO")} io the socket.io clien to route this through
    * @param {number[]} idList the ids of the groups
    * @param {{'base' | 'extended' | 'audioConfig' | 'audioCounts'}[]} entities the entities of the groups to fetch
    * @param {boolean} subscribe subscribe to profile updates to these groups
@@ -44,7 +42,7 @@ module.exports = class GroupRequests {
 
   /**
    * Get the stats for a group
-   * @param {IO} io the entities of the group to fetch
+   * @param {import("../IO")} io the entities of the group to fetch
    * @param {number} id the id of the group
    */
   static GroupStats = async (io, id) =>
@@ -55,7 +53,7 @@ module.exports = class GroupRequests {
 
   /**
    * Update a Group
-   * @param {IO} io the socket.io clien to route this through
+   * @param {import("../IO")} io the socket.io clien to route this through
    * @param {number} id the id of the group to update
    * @param {data} data the data to update the group with
    */

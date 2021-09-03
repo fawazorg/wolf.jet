@@ -1,16 +1,14 @@
-const { assign } = require("./util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 
 module.exports = class StoreManger {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new Message Manager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -18,14 +16,15 @@ module.exports = class StoreManger {
 
   /**
    * get store credit balance
-   * @returns {number}
+   * @param {boolean} subscribe subscribe to Credit Balance
+   * @returns {number} credit balance
    */
   CreditBalance = async (subscribe) => {
     try {
       const response = await Requests.StoreCreditBalance(this.#Client.V3, subscribe);
 
       return response.body.balance;
-    } catch {
+    } catch (e) {
       return null;
     }
   };

@@ -1,24 +1,20 @@
-const { EventEmitter } = require("events");
-const { assign } = require("../Managers/util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
-const Subscriber = require("../Models/Subscriber/Subscriber");
 
 module.exports = class Events {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
-   * @type {EventEmitter}
+   * @type {import("events").EventEmitter}
    */
   #Emitter;
 
   /**
    * Create new Events Handler
-   * @param {Client} client
-   * @param {EventEmitter} emitter
+   * @param {import("../Client")} client
+   * @param {import("events").EventEmitter} emitter
    */
   constructor(client, emitter) {
     this.#Client = client;
@@ -36,7 +32,7 @@ module.exports = class Events {
   }
 
   #OnWelcome = async (data) => {
-    const { endpointConfig, loggedInUser } = data;
+    const { loggedInUser } = data;
 
     if (loggedInUser) {
       try {
@@ -50,7 +46,9 @@ module.exports = class Events {
         this.#Client.CurrentUser = subscriber;
 
         this.#Client.On.Security.LoginSuccess(subscriber);
-      } catch {}
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 };

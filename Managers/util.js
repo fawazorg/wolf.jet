@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
 const assign = (target, source) => {
   try {
     const keys = Object.keys(target).reduce((keys, key) => {
@@ -10,10 +13,14 @@ const assign = (target, source) => {
           return assign(target[keys[key.toLowerCase()]], source[key]);
 
         target[keys[key.toLowerCase()] ?? key] = source[key];
-      } catch {}
+      } catch (e) {
+        console.log(e);
+      }
     });
     return target;
-  } catch {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 module.exports = {

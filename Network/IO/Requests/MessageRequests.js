@@ -1,9 +1,7 @@
-const IO = require("../IO");
-
 module.exports = class MessageRequests {
   /**
    * Subscribe to all group messages
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    */
   static MessageGroupSubscribe = async (io) =>
     await io.Emit("message group subscribe", {
@@ -12,13 +10,13 @@ module.exports = class MessageRequests {
 
   /**
    * Subscribe to all private messages
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    */
   static MessagePrivateSubscribe = async (io) => await io.Emit("message private subscribe");
 
   /**
    * Send a Message
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} recipient the recpiient of this message
    * @param {boolean} isGroup is the message meant for a group
    * @param {string | Buffer} data the data to be sent

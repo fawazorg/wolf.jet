@@ -1,16 +1,14 @@
-const { assign } = require("./util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 
 module.exports = class ContactManger {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new Message Manager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -25,7 +23,7 @@ module.exports = class ContactManger {
       const response = await Requests.SubscriberContactList(this.#Client.V3);
 
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -35,11 +33,11 @@ module.exports = class ContactManger {
    * @param {number} id the id of subscriber
    * @returns {boolean}
    */
-  ContactAdd = async (id, languageId) => {
+  ContactAdd = async (id) => {
     try {
-      const response = await Requests.SubscriberContactAdd(this.#Client.V3, id);
+      await Requests.SubscriberContactAdd(this.#Client.V3, id);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -51,9 +49,9 @@ module.exports = class ContactManger {
    */
   ContactDelete = async (id) => {
     try {
-      const response = await Requests.SubscriberContactDelete(this.#Client.V3, id);
+      await Requests.SubscriberContactDelete(this.#Client.V3, id);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };

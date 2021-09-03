@@ -1,23 +1,20 @@
-const { EventEmitter } = require("events");
-const Client = require("../Client");
-const Subscriber = require("../Models/Subscriber/Subscriber");
 const Requests = require("../Network/IO/Requests");
 
 module.exports = class Events {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
-   * @type {EventEmitter}
+   * @type {import("events").EventEmitter}
    */
   #Emitter;
 
   /**
    * Create new Events Handler
-   * @param {Client} client
-   * @param {EventEmitter} emitter
+   * @param {import("../Client")} client
+   * @param {import("events").EventEmitter} emitter
    */
   constructor(client, emitter) {
     this.#Client = client;
@@ -36,7 +33,7 @@ module.exports = class Events {
 
   /**
    * Raise an event when logged in successfully
-   * @param {(subscriber: Subscriber) => void} fn
+   * @param {(subscriber: import("../Models/Subscriber/Subscriber")) => void} fn
    */
   set LoginSuccess(fn) {
     this.#Emitter.on("security login success", fn);
@@ -60,7 +57,7 @@ module.exports = class Events {
 
   /**
    * Emit the Secuirty Login Success Event
-   * @returns {(subscriber: Subscriber) => boolean}
+   * @returns {(subscriber: import("../Models/Subscriber/Subscriber")) => boolean}
    */
   get LoginSuccess() {
     return (subscriber) => this.#Emitter.emit("security login success", subscriber);
@@ -76,16 +73,18 @@ module.exports = class Events {
 
   /**
    * Handle the OnLoginSuccess Stuff
-   * @param {Subscriber} subscriber
+   * @param {import("../Models/Subscriber/Subscriber")} subscriber
    */
-  #OnLoginSuccess = async (subscriber) => {
+  #OnLoginSuccess = async () => {
     try {
       // Subscribe to Messages
-      const mgs = await Requests.MessageGroupSubscribe(this.#Client.V3);
-      const mps = await Requests.MessagePrivateSubscribe(this.#Client.V3);
+      await Requests.MessageGroupSubscribe(this.#Client.V3);
+      await Requests.MessagePrivateSubscribe(this.#Client.V3);
 
       // Emit the Ready Event
       this.#Client.On.SDK.Ready();
-    } catch {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

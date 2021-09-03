@@ -1,23 +1,18 @@
-const { EventEmitter } = require("events");
-const { kMaxLength } = require("buffer");
-const Client = require("../Client");
-const Subscriber = require("../Models/Subscriber/Subscriber");
-
 module.exports = class Events {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
-   * @type {EventEmitter}
+   * @type {import("events").EventEmitter}
    */
   #Emitter;
 
   /**
    * Create new Events Handler
-   * @param {Client} client
-   * @param {EventEmitter} emitter
+   * @param {import("../Client")} client
+   * @param {import("events").EventEmitter} emitter
    */
   constructor(client, emitter) {
     this.#Client = client;
@@ -28,7 +23,7 @@ module.exports = class Events {
 
   /**
    * Raise an event when a subscriber is fetched
-   * @param {(subscriber: Subscriber) => void} fn
+   * @param {(subscriber: import("../Models/Subscriber/Subscriber")) => void} fn
    */
   set Fetched(fn) {
     this.#Emitter.on("subscriber profile", fn);
@@ -44,7 +39,7 @@ module.exports = class Events {
 
   /**
    * Emit the Subscriber Profile Fetched Event
-   * @returns {(subscriber: Subscriber) => boolean}
+   * @returns {(subscriber: import("../Models/Subscriber/Subscriber")) => boolean}
    */
   get Fetched() {
     return (subscriber) => this.#Emitter.emit("subscriber profile", subscriber);

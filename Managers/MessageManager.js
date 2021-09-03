@@ -1,17 +1,16 @@
 const { assign } = require("./util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 const Message = require("../Models/Message/Message");
 
 module.exports = class MessageManager {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new Message Manager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -23,6 +22,7 @@ module.exports = class MessageManager {
    * @param {boolean} isGroup is the message ment for a group
    * @param {string | Buffer} data the data to be sent
    * @param {string} mimeType the mimetype of the message
+   * @returns {boolean}
    */
   SendMessage = async (recipient, isGroup, data, mimeType) => {
     try {
@@ -43,7 +43,7 @@ module.exports = class MessageManager {
       this.#Client.On.Message.Sent(mesg);
 
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };

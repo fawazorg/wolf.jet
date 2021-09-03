@@ -1,23 +1,21 @@
-const { EventEmitter } = require("events");
-const Client = require("../Client");
 const Message = require("../Models/Message/Message");
 const { assign } = require("../Managers/util");
 
 module.exports = class Events {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
-   * @type {EventEmitter}
+   * @type {import("events").EventEmitter}
    */
   #Emitter;
 
   /**
    * Create new Events Handler
-   * @param {Client} client
-   * @param {EventEmitter} emitter
+   * @param {import("../Client")} client
+   * @param {import("events").EventEmitter} emitter
    */
   constructor(client, emitter) {
     this.#Client = client;

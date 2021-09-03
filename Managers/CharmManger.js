@@ -1,17 +1,16 @@
 const { assign } = require("./util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 const Charm = require("../Models/Charm");
 
 module.exports = class AchievementManager {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new Message Manager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -27,7 +26,7 @@ module.exports = class AchievementManager {
       const response = await Requests.CharmList(this.#Client.V3, languageId);
       const Charms = response.body.map((t) => assign(new Charm(), t));
       return Charms;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -36,27 +35,27 @@ module.exports = class AchievementManager {
    * Get charm info by id
    * @param {number} id the id of charms
    * @param {number} languageId the id of language
-   * @returns
+   * @returns {Charm}
    */
   GetCharm = async (id, languageId) => {
     try {
       const response = await Requests.Charm(this.#Client.V3, id, languageId);
       const charm = assign(new Charm(), response.body[0]);
       return charm;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
 
   /**
    * Get all starred list
-   * @returns
+   * @returns {object}
    */
   StarredList = async () => {
     try {
       const response = await Requests.StarredList(this.#Client.V3);
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -66,13 +65,13 @@ module.exports = class AchievementManager {
    * @param {number} id the id of subscriber
    * @param {number} limit how many charms should be returned
    * @param {number} offset index where the returned charms should start
-   * @returns
+   * @returns {object}
    */
   ActiveList = async (id, limit, offset) => {
     try {
       const response = await Requests.ActiveList(this.#Client.V3, id, limit, offset);
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -82,13 +81,13 @@ module.exports = class AchievementManager {
    * @param {number} id the id of subscriber
    * @param {number} limit how many charms should be returned
    * @param {number} offset index where the returned charms should start
-   * @returns
+   * @returns {object}
    */
   ExpiredList = async (id, limit, offset) => {
     try {
       const response = await Requests.ExpiredList(this.#Client.V3, id, limit, offset);
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -100,9 +99,10 @@ module.exports = class AchievementManager {
    */
   setCharm = async (charmID) => {
     try {
-      const response = await Requests.SetSelected(this.#Client.V3, charmID);
+      await Requests.SetSelected(this.#Client.V3, charmID);
+
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -112,13 +112,13 @@ module.exports = class AchievementManager {
    * @param {number} id the id of subscriber
    * @param {number} limit how many charms should be returned
    * @param {number} offset index where the returned charms should start
-   * @returns
+   * @returns {object}
    */
   SummaryList = async (id, limit, offset) => {
     try {
-      const response = await Requests.SummaryList(this.#Client.V3, id);
+      const response = await Requests.SummaryList(this.#Client.V3, id, limit, offset);
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -127,13 +127,13 @@ module.exports = class AchievementManager {
    * get all Statistics charm for the subscriber
    * @param {number} id the is of subscriber
    * @param {boolean} extended extended info?
-   * @returns
+   * @returns {object}
    */
   Statistics = async (id, extended) => {
     try {
       const response = await Requests.Statistics(this.#Client.V3, id, extended);
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };

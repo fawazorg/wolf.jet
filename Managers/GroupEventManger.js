@@ -1,17 +1,16 @@
 const { assign } = require("./util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 const GroupEvent = require("../Models/GroupEvent");
 
 module.exports = class GroupEventManger {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new Message Manager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -25,25 +24,24 @@ module.exports = class GroupEventManger {
   GroupEvent = async (idList) => {
     try {
       const response = await Requests.GroupEvent(this.#Client.V3, idList);
-      let GroupEvents = response.map((x) => {
-        return assign(new GroupEvent(), x);
-      });
+      const GroupEvents = response.map((x) => assign(new GroupEvent(), x));
       return GroupEvents;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
 
   /**
    * Create an event
-   * @param {event} eventData the data of event
+   * @param {object} eventData the data of event
+   * @returns {GroupEvent}
    */
   CreateEvent = async (eventData) => {
     try {
       const response = await Requests.GroupEventCreate(this.#Client.V3, eventData);
 
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -51,13 +49,14 @@ module.exports = class GroupEventManger {
   /**
    * Update an event
    * @param {object} eventInfo the event info
+   * @returns {object}
    */
   UpdateEvent = async (eventInfo) => {
     try {
       const response = await Requests.GroupEventUpdate(this.#Client.V3, eventInfo);
 
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -65,13 +64,14 @@ module.exports = class GroupEventManger {
   /**
    * Cancel an Event
    * @param {number} id the id of event
+   * @returns {object}
    */
   CancelEvent = async (id) => {
     try {
       const response = await Requests.GroupEventUpdate(this.#Client.V3, { id, isRemoved: true });
 
       return response;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -79,13 +79,13 @@ module.exports = class GroupEventManger {
   /**
    * Subscribe to an event
    * @param {number} id the id of event
+   * @returns {boolean}
    */
   SubscribeToEvent = async (id) => {
     try {
-      const response = await Requests.SubscriberGroupEventAdd(this.#Client.V3, id);
-      console.log(response);
+      await Requests.SubscriberGroupEventAdd(this.#Client.V3, id);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -93,13 +93,13 @@ module.exports = class GroupEventManger {
   /**
    * Unsubscribe to an event
    * @param {number} id the id of event
+   * @returns {boolean}
    */
   UnsubscribeToEvent = async (id) => {
     try {
-      const response = await Requests.SubscriberGroupEventDelete(this.#Client.V3, id);
-      console.log(response);
+      await Requests.SubscriberGroupEventDelete(this.#Client.V3, id);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -108,13 +108,14 @@ module.exports = class GroupEventManger {
    * Get group events list
    * @param {number} id the id for group
    * @param {boolean} subscribe subscribe to the group event info
+   * @returns {object}
    */
   EventList = async (id, subscribe) => {
     try {
       const response = await Requests.GroupEventList(this.#Client.V3, id, subscribe);
 
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };

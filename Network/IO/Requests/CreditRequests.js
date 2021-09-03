@@ -1,9 +1,7 @@
-const IO = require("../IO");
-
 module.exports = class CreditRequests {
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {boolean} subscribe
    * @returns
    */

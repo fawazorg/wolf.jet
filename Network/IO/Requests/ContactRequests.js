@@ -1,9 +1,7 @@
-const IO = require("../IO");
-
 module.exports = class ContactRequests {
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {boolean} subscribe
    * @returns
    */
@@ -11,7 +9,7 @@ module.exports = class ContactRequests {
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} id
    * @returns
    */
@@ -19,7 +17,7 @@ module.exports = class ContactRequests {
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} Id
    * @returns
    */

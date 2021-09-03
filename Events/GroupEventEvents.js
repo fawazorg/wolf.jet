@@ -1,22 +1,18 @@
-const { EventEmitter } = require("events");
-const Client = require("../Client");
-const { assign } = require("../Managers/util");
-const GroupEvent = require("../Models/GroupEvent");
 module.exports = class Events {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
-   * @type {EventEmitter}
+   * @type {import("events").EventEmitter}
    */
   #Emitter;
 
   /**
    * Create new Events Handler
-   * @param {Client} client
-   * @param {EventEmitter} emitter
+   * @param {import("../Client")} client
+   * @param {import("events").EventEmitter} emitter
    */
   constructor(client, emitter) {
     this.#Client = client;
@@ -60,6 +56,7 @@ module.exports = class Events {
   #OnCreate = ({ body }) => {
     this.Created(body);
   };
+
   #OnUpdate = ({ body }) => {
     this.Updated(body);
   };

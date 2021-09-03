@@ -1,5 +1,4 @@
 const { assign } = require("./util");
-const Client = require("../Client");
 const Group = require("../Models/Group/Group");
 const GroupMember = require("../Models/Group/GroupMember");
 const Requests = require("../Network/IO/Requests");
@@ -12,13 +11,13 @@ const GroupStats = require("../Models/GroupStats/GroupStats");
 
 module.exports = class GroupManager {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Crate a new GroupManager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -47,7 +46,7 @@ module.exports = class GroupManager {
       this.#Client.On.Groups.Fetched(group);
 
       return group;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -73,7 +72,7 @@ module.exports = class GroupManager {
       groups.forEach((group) => this.#Client.On.Groups.Fetched(group));
 
       return groups;
-    } catch {
+    } catch (e) {
       return [];
     }
   };
@@ -137,7 +136,7 @@ module.exports = class GroupManager {
       });
 
       return stats;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -151,7 +150,7 @@ module.exports = class GroupManager {
     try {
       await Requests.GroupUpdate(this.#Client.V3, id, data);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -164,7 +163,7 @@ module.exports = class GroupManager {
     try {
       await Requests.GroupCreate(this.#Client.V3, data);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -179,7 +178,7 @@ module.exports = class GroupManager {
       const respouns = await Requests.GroupMemberList(this.#Client.V3, id);
       const members = respouns.body.map((t) => assign(new GroupMember(), t));
       return members;
-    } catch {
+    } catch (e) {
       return null;
     }
   };

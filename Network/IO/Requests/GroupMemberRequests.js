@@ -1,9 +1,7 @@
-const IO = require("../IO");
-
 module.exports = class GroupMemberRequests {
   /**
    *
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {string | number} nameOrId the name or id of the group
    * @param {string} password the password of the group
    * @param {number} referredBy the id of the subscriber who referred the client
@@ -23,7 +21,7 @@ module.exports = class GroupMemberRequests {
 
   /**
    *
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} groupId the id of the group
    * @param {number} subscriberId the id of the subscriber
    * @param {number} capabilities the new capabilities of the subscriber
@@ -37,14 +35,14 @@ module.exports = class GroupMemberRequests {
 
   /**
    *
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} subscriberId the id of the subscriber
    */
   static GroupMemberDelete = async (io, subscriberId) => await io.Emit("group member delete", { subscriberId });
 
   /**
    *
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} id the id of the group
    * @param {boolea} subscribe subscribe to updates to the group member list
    */

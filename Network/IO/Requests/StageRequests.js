@@ -1,16 +1,14 @@
-const IO = require("../IO");
-
 module.exports = class StageRequests {
   /**
    * Request Stage Information for a Group
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} id the id of the group
    */
   static GroupAudio = async (io, id) => await io.Emit("group audio", { id });
 
   /**
    * Update a Group's Stage Configuration
-   * @param {IO} io the socket.io client to send the request through
+   * @param {import("../IO")} io the socket.io client to send the request through
    * @param {number} id the id of the group
    * @param {boolean} enabled is the stage enabled?
    * @param {number} minRepLevel the minimum rep level required to join stage
@@ -24,7 +22,7 @@ module.exports = class StageRequests {
 
   /**
    * Get information about Audio Slots for a Group
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} id the id of the group
    * @param {booleam} subscribe subscribe to updates to the audio slots
    */
@@ -32,7 +30,7 @@ module.exports = class StageRequests {
 
   /**
    * Update a Group's Stage Slot
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} id the id of the group
    * @param {number} slotId the slot id to update
    * @param {boolean} locked is the slot locked?
@@ -41,16 +39,16 @@ module.exports = class StageRequests {
 
   /**
    * Broadcast to a group's audio slot
-   * @param {IO} io the socket.io client to send this request through
-   * @param {*} id the id of the group
-   * @param {*} slotId the slot id to broascast to
-   * @param {*} sdp the session description protocol message
+   * @param {import("../IO")} io the socket.io client to send this request through
+   * @param {number} id the id of the group
+   * @param {number} slotId the slot id to broascast to
+   * @param {string} sdp the session description protocol message
    */
   static GroupAudioBroadcast = async (io, id, slotId, sdp) => await io.Emit("group audio broadcast", { id, slotId, sdp });
 
   /**
    * Updates a current broadcast on a group stage slot
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} id the id of the group
    * @param {number} slotId the id of the slot
    * @param {number} occupierId the id of the subscriber making the request
@@ -66,7 +64,7 @@ module.exports = class StageRequests {
 
   /**
    * Releases a slot and disconnects from the publishing audio stream
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} id the id of the group
    * @param {number} slotId the id of the slot
    * @param {number} occupierId the id of the subscriber making the request
@@ -80,23 +78,23 @@ module.exports = class StageRequests {
 
   /**
    * Consume audio from a group's audio slot
-   * @param {IO} io the socket.io client to send this request through
-   * @param {*} id the id of the group
-   * @param {*} slotId the slot id to broascast to
-   * @param {*} sdp the session description protocol message
+   * @param {import("../IO")} io the socket.io client to send this request through
+   * @param {number} id the id of the group
+   * @param {number} slotId the slot id to broascast to
+   * @param {string} sdp the session description protocol message
    */
   static GroupAudioConsume = async (io, id, slotId, sdp) => await io.Emit("group audio consume", { id, slotId, sdp });
 
   /**
    * Get a list of all stage themes available
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} languageId the language id to localize the stage name
    */
   static StageList = async (io, languageId) => await io.Emit("stage list", { languageId });
 
   /**
    * Get a list of all stage themes avialable to a group
-   * @param {IO} io the socket.io client to send this request through
+   * @param {import("../IO")} io the socket.io client to send this request through
    * @param {number} id the id of the group
    */
   static StageGroupActiveList = async (io, id) => await io.Emit("stage group active list", { id });

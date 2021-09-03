@@ -2,7 +2,6 @@ const { EventEmitter } = require("events");
 const Events = require("./Events");
 const IO = require("./Network/IO/IO");
 const Requests = require("./Network/IO/Requests");
-const Subscriber = require("./Models/Subscriber/Subscriber");
 const GroupManager = require("./Managers/GroupManager");
 const MessageManager = require("./Managers/MessageManager");
 const StageManager = require("./Managers/StageManager");
@@ -20,7 +19,7 @@ module.exports = class Client {
   Token;
 
   /**
-   * @type {Subscriber}
+   * @type {import("./Models/Subscriber/Subscriber")}
    */
   CurrentUser;
 
@@ -109,6 +108,7 @@ module.exports = class Client {
    * @param {string} email the email of the account
    * @param {string} password the password of the account
    * @param {number} onlineState the onlineState to use
+   * @returns {boolean}
    */
   Login = async (email, password, onlineState = 1) => {
     try {
@@ -122,7 +122,7 @@ module.exports = class Client {
         return false;
       }
 
-      let { cognito, subscriber } = body;
+      let { subscriber } = body;
 
       // Fetch the Current Subsciber and subscribe to updates to self
       subscriber = await this.Subscribers.GetSubscriber(subscriber.id, true, true);
@@ -131,7 +131,7 @@ module.exports = class Client {
 
       this.On.Security.LoginSuccess(subscriber);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -155,8 +155,10 @@ module.exports = class Client {
   #GenerateToken = () => {
     let d = new Date().getTime();
     return `WolfJS${"x".repeat(64).replace(/[x]/gi, (c) => {
+      // eslint-disable-next-line no-bitwise
       const r = (d + Math.random() * 16) % 16 | 0;
       d = Math.floor(d / 16);
+      // eslint-disable-next-line no-bitwise
       return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
     })}`;
   };

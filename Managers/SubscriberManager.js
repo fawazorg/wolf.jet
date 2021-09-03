@@ -1,17 +1,16 @@
 const { assign } = require("./util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 const Subscriber = require("../Models/Subscriber/Subscriber");
 
 module.exports = class SubscriberManager {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new Subscriber Manager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -30,7 +29,7 @@ module.exports = class SubscriberManager {
       const sub = assign(new Subscriber(), response.body);
       this.#Client.On.Subscriber.Fetched(sub);
       return sub;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -49,7 +48,6 @@ module.exports = class SubscriberManager {
       subs.forEach((sub) => this.#Client.On.Subscriber.Fetched(sub));
       return response.map((t) => assign(new Subscriber(), t));
     } catch (e) {
-      console.log(e);
       return [];
     }
   };
@@ -60,7 +58,7 @@ module.exports = class SubscriberManager {
   GetSettings = async () => {
     try {
       return await Requests.SubscriberSettings(this.#Client.V3);
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -73,7 +71,7 @@ module.exports = class SubscriberManager {
     try {
       await Requests.SubscriberUpdate(this.#Client.V3, data);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -86,7 +84,7 @@ module.exports = class SubscriberManager {
     try {
       const response = await Requests.SubscriberBlockList(this.#Client.V3, subscribe);
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -97,9 +95,9 @@ module.exports = class SubscriberManager {
    */
   BlockAdd = async (id) => {
     try {
-      const response = await Requests.SubscriberBlockAdd(this.#Client.V3, id);
+      await Requests.SubscriberBlockAdd(this.#Client.V3, id);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };
@@ -110,9 +108,9 @@ module.exports = class SubscriberManager {
    */
   BlockDelete = async (id) => {
     try {
-      const response = await Requests.SubscriberBlockDelete(this.#Client.V3, id);
+      await Requests.SubscriberBlockDelete(this.#Client.V3, id);
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   };

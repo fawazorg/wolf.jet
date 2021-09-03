@@ -1,13 +1,15 @@
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
+/* eslint-disable no-async-promise-executor */
+/* eslint-disable no-param-reassign */
 const asyncPool = require("tiny-async-pool");
 const io = require("socket.io-client");
-const Client = require("../../Client");
-
 /**
  * Socket.IO Handler
  */
 module.exports = class IO {
   /**
-   * @type {Client}
+   * @type {import("../../Client")}
    */
   Client;
 
@@ -18,7 +20,7 @@ module.exports = class IO {
 
   /**
    * Generate a new Socket.IO Handler
-   * @param {Client} client
+   * @param {import("../../Client")} client
    * @param {string} baseUrl
    * @param {'web' | 'android' | 'ios'} device
    */

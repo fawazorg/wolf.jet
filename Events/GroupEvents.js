@@ -1,22 +1,18 @@
-const { EventEmitter } = require("events");
-const Client = require("../Client");
-const Group = require("../Models/Group/Group");
-
 module.exports = class Events {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
-   * @type {EventEmitter}
+   * @type {import("events").EventEmitter}
    */
   #Emitter;
 
   /**
    * Create new Events Handler
-   * @param {Client} client
-   * @param {EventEmitter} emitter
+   * @param {import("../Client")} client
+   * @param {import("events").EventEmitter} emitter
    */
   constructor(client, emitter) {
     this.#Client = client;
@@ -27,7 +23,7 @@ module.exports = class Events {
 
   /**
    * Raise an event when a group is fetched
-   * @param {(group: Group) => void} fn
+   * @param {(group: import("../Models/Group/Group")) => void} fn
    */
   set Fetched(fn) {
     this.#Emitter.on("group profile", fn);
@@ -43,7 +39,7 @@ module.exports = class Events {
 
   /**
    * Emit the Group Fetched Event
-   * @returns {(group: Group) => boolean}}
+   * @returns {(group: import("../Models/Group/Group")) => boolean}}
    */
   get Fetched() {
     return (group) => this.#Emitter.emit("group profile", group);

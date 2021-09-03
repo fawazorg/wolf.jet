@@ -1,16 +1,14 @@
-const IO = require("../IO");
-
 module.exports = class CharmRequests {
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} languageId
    */
   static CharmList = async (io, languageId = 1) => await io.Emit("charm list", { body: { languageId } });
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} id
    * @param {number} languageId
    * @returns
@@ -19,13 +17,13 @@ module.exports = class CharmRequests {
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    */
   static StarredList = async (io) => await io.Emit("charm starred list");
 
   /**
    *
-   * @param {IO} io
+   * @param import("../IO") io
    * @param {number} id
    * @param {number} limit
    * @param {number} offset
@@ -34,7 +32,7 @@ module.exports = class CharmRequests {
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} id
    * @param {number} limit
    * @param {number} offset
@@ -43,7 +41,7 @@ module.exports = class CharmRequests {
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} charmId
    * @returns
    */
@@ -51,15 +49,17 @@ module.exports = class CharmRequests {
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} id
+   * @param {number} limit
+   * @param {number} offset
    * @returns
    */
-  static SummaryList = async (io, id) => await io.Emit("charm subscriber summary list", { body: { id } });
+  static SummaryList = async (io, id, limit, offset) => await io.Emit("charm subscriber summary list", { body: { id, limit, offset } });
 
   /**
    *
-   * @param {IO} io
+   * @param {import("../IO")} io
    * @param {number} id
    * @param {boolean} extended
    * @returns

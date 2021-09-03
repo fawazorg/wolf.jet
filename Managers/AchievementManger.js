@@ -1,17 +1,16 @@
 const { assign } = require("./util");
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 const Achievement = require("../Models/Achievement");
 
 module.exports = class AchievementManager {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new Message Manager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
@@ -20,6 +19,7 @@ module.exports = class AchievementManager {
   /**
    * Get achievements List
    * @param {number} languageId the id of language
+   * @returns {achievements[]}
    */
   GetAchievements = async (languageId) => {
     try {
@@ -41,7 +41,7 @@ module.exports = class AchievementManager {
       );
 
       return achievements;
-    } catch {
+    } catch (e) {
       return null;
     }
   };
@@ -55,7 +55,7 @@ module.exports = class AchievementManager {
       const response = await Requests.AchievementSubscriberList(this.#Client.V3, subscriberId);
       // TODO: Marge Subscriber Achievements with general Achievements
       return response.body;
-    } catch {
+    } catch (e) {
       return null;
     }
   };

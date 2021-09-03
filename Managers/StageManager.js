@@ -1,21 +1,21 @@
-const Client = require("../Client");
 const Requests = require("../Network/IO/Requests");
 
 module.exports = class StageManager {
   /**
-   * @type {Client}
+   * @type {import("../Client")}
    */
   #Client;
 
   /**
    * Create a new StageManager
-   * @param {Client} client
+   * @param {import("../Client")} client
    */
   constructor(client) {
     this.#Client = client;
   }
 
   JoinStage = (groupId, slotId, offerSdp) =>
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve) => {
       const response = await Requests.GroupAudioBroadcast(this.#Client.V3, groupId, slotId, offerSdp);
       resolve(response.body.sdp);
