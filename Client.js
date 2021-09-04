@@ -11,6 +11,7 @@ const CharmManger = require("./Managers/CharmManger");
 const ContactManger = require("./Managers/ContactManger");
 const StoreManger = require("./Managers/StoreManger");
 const GroupEventManger = require("./Managers/GroupEventManger");
+const TipingManger = require("./Managers/TipingManger");
 
 module.exports = class Client {
   /**
@@ -62,22 +63,27 @@ module.exports = class Client {
   /**
    * @type {CharmManger}
    */
-  CharmManger;
+  Charm;
 
   /**
    * @type {ContactManger}
    */
-  ContactManger;
+  Contact;
 
   /**
    * @type {StoreManger}
    */
-  StoreManger;
+  Store;
 
   /**
    * @type {GroupEventManger}
    */
-  GroupEventManger;
+  GroupEvent;
+
+  /**
+   * @type {TipingManger}
+   */
+  Tiping;
 
   /**
    * @type {SubscriberManager}
@@ -95,10 +101,11 @@ module.exports = class Client {
     this.Stages = new StageManager(this);
     this.Subscribers = new SubscriberManager(this);
     this.Achievements = new AchievementManger(this);
-    this.CharmManger = new CharmManger(this);
-    this.ContactManger = new ContactManger(this);
-    this.StoreManger = new StoreManger(this);
-    this.GroupEventManger = new GroupEventManger(this);
+    this.Charm = new CharmManger(this);
+    this.Contact = new ContactManger(this);
+    this.Store = new StoreManger(this);
+    this.GroupEvent = new GroupEventManger(this);
+    this.Tiping = new TipingManger(this);
 
     this.On = new Events(this, this.Emitter);
   }

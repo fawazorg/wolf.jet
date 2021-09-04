@@ -13,14 +13,12 @@ const assign = (target, source) => {
           return assign(target[keys[key.toLowerCase()]], source[key]);
 
         target[keys[key.toLowerCase()] ?? key] = source[key];
-      } catch (e) {
-        console.log(e);
-      }
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
     });
     return target;
-  } catch (e) {
-    console.log(e);
-  }
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
 };
 
 module.exports = {

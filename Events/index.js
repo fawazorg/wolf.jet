@@ -1,6 +1,3 @@
-const { EventEmitter } = require("events");
-const Client = require("../Client");
-
 const AchievementEvents = require("./AchievementEvents");
 const BlockedEvents = require("./BlockedEvents");
 const CharmEvents = require("./CharmEvents");
@@ -39,8 +36,8 @@ module.exports = class Events {
 
   /**
    * New Event Wrapper
-   * @param {Client} client the client to bind to
-   * @param {EventEmitter} emitter the client's emitter
+   * @param {import("../Client")} client the client to bind to
+   * @param {import("events").EventEmitter} emitter the client's emitter
    */
   constructor(client, emitter) {
     this.Groups = new GroupEvents(client, emitter);
@@ -51,5 +48,6 @@ module.exports = class Events {
     this.Subscriber = new SubscriberEvents(client, emitter);
     this.Wolf = new WolfEvents(client, emitter);
     this.GroupEvent = new GroupEventEvents(client, emitter);
+    this.Tipping = new TippingEvents(client, emitter);
   }
 };

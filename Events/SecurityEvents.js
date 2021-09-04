@@ -80,6 +80,8 @@ module.exports = class Events {
       // Subscribe to Messages
       await Requests.MessageGroupSubscribe(this.#Client.V3);
       await Requests.MessagePrivateSubscribe(this.#Client.V3);
+      await Requests.TipGroupSubscribe(this.#Client.V3);
+      await Requests.TipPrivateSubscribe(this.#Client.V3);
 
       // Emit the Ready Event
       this.#Client.On.SDK.Ready();

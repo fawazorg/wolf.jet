@@ -62,8 +62,8 @@ module.exports = class Events {
     // Wrap Recipient and Originator in generic simple object style if private
     if (!mesg.recipient?.id) mesg.recipient = { id: mesg.recipient, hash: null };
     if (!mesg.originator?.id) mesg.originator = { id: mesg.originator, hash: null };
+    if (!mesg.flightId) mesg.FlightId = "";
     mesg.content = mesg.data.toString("utf-8");
-
     mesg = assign(new Message(), mesg);
 
     this.Received(mesg);
